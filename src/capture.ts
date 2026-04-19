@@ -10,11 +10,7 @@ export function pickImage(opts: PickOptions): Promise<File | null> {
 		if (opts.preferCamera) {
 			input.setAttribute("capture", "environment");
 		}
-		input.style.position = "fixed";
-		input.style.left = "-9999px";
-		input.style.top = "-9999px";
-		input.style.opacity = "0";
-		input.style.pointerEvents = "none";
+		input.addClass("snap2note-hidden-input");
 
 		let settled = false;
 		const cleanup = () => {

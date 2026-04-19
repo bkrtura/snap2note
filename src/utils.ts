@@ -75,12 +75,12 @@ function loadViaImageElement(file: File): Promise<ImageBitmap> {
 				resolve(bmp);
 			} catch (e) {
 				URL.revokeObjectURL(url);
-				reject(e);
+				reject(e instanceof Error ? e : new Error(String(e)));
 			}
 		};
-		img.onerror = (e) => {
+		img.onerror = () => {
 			URL.revokeObjectURL(url);
-			reject(e);
+			reject(new Error("Failed to load image"));
 		};
 		img.src = url;
 	});

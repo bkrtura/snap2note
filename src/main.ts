@@ -25,7 +25,7 @@ export default class Snap2NotePlugin extends Plugin {
 		await this.loadSettings();
 
 		// Ribbon icon — primary entry point on mobile.
-		this.addRibbonIcon("camera", "Snap2Note: capture and insert", () => {
+		this.addRibbonIcon("camera", "Capture and insert", () => {
 			void this.runCapture({ preferCamera: true });
 		});
 
@@ -78,7 +78,7 @@ export default class Snap2NotePlugin extends Plugin {
 	private addViewAction(view: MarkdownView) {
 		if (this.decoratedViews.has(view)) return;
 		this.decoratedViews.add(view);
-		view.addAction("camera", "Snap2Note: capture and insert", () => {
+		view.addAction("camera", "Capture and insert", () => {
 			void this.runCapture({ preferCamera: true });
 		});
 	}
@@ -99,12 +99,12 @@ export default class Snap2NotePlugin extends Plugin {
 		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 		const editor = view?.editor;
 		if (!editor) {
-			new Notice("Snap2Note: open a Markdown note first.");
+			new Notice("Open a Markdown note first");
 			return;
 		}
 
 		if (!this.settings.geminiApiKey) {
-			new Notice("Snap2Note: set your Gemini API key in settings.");
+			new Notice("Set your Gemini API key in settings");
 			return;
 		}
 
@@ -113,12 +113,12 @@ export default class Snap2NotePlugin extends Plugin {
 			file = await pickImage({ preferCamera: opts.preferCamera });
 		} catch (e) {
 			this.logDebug("pickImage failed", e);
-			new Notice("Snap2Note: could not open camera/picker.");
+			new Notice("Could not open camera/picker");
 			return;
 		}
 		if (!file) return;
 
-		const loading = new Notice("Snap2Note: recognizing…", 0);
+		const loading = new Notice("Recognizing…", 0);
 
 		let base64 = "";
 		try {
@@ -140,7 +140,7 @@ export default class Snap2NotePlugin extends Plugin {
 
 			this.insertText(editor, text);
 			loading.hide();
-			new Notice("Snap2Note: inserted ✓", 2000);
+			new Notice("Inserted", 2000);
 		} catch (e) {
 			loading.hide();
 			this.handleError(e);
@@ -177,41 +177,41 @@ export default class Snap2NotePlugin extends Plugin {
 		if (err instanceof GeminiError) {
 			switch (err.kind) {
 				case "auth":
-					new Notice("Snap2Note: invalid API key. Check settings.", 6000);
+					new Notice("Invalid API key — check settings", 6000);
 					return;
 				case "rate-limit":
-					new Notice("Snap2Note: rate limit reached. Wait a moment.", 6000);
+					new Notice("Rate limit reached — wait a moment", 6000);
 					return;
 				case "timeout":
-					new Notice("Snap2Note: request timed out. Check network.", 6000);
+					new Notice("Request timed out — check network", 6000);
 					return;
 				case "server":
-					new Notice("Snap2Note: Gemini server error. Try again.", 6000);
+					new Notice("Gemini server error — try again", 6000);
 					return;
 				case "network":
-					new Notice("Snap2Note: network error.", 6000);
+					new Notice("Network error", 6000);
 					return;
 				case "too-large":
-					new Notice("Snap2Note: image too large. Enable compression.", 6000);
+					new Notice("Image too large — enable compression", 6000);
 					return;
 				case "empty":
-					new Notice("Snap2Note: no text recognized.", 5000);
+					new Notice("No text recognized", 5000);
 					return;
 				default:
-					new Notice(`Snap2Note: ${err.message}`, 6000);
+					new Notice(err.message, 6000);
 					return;
 			}
 		}
 		this.logDebug("Unexpected error", err);
-		new Notice("Snap2Note: unexpected error. Enable debug log for details.");
+		new Notice("Unexpected error — enable debug log for details");
 	}
 
 	private logDebug(label: string, payload?: unknown) {
 		if (!this.settings?.debugLog) return;
 		if (payload === undefined) {
-			console.log(`[snap2note] ${label}`);
+			console.debug(`[snap2note] ${label}`);
 		} else {
-			console.log(`[snap2note] ${label}`, payload);
+			console.debug(`[snap2note] ${label}`, payload);
 		}
 	}
 }

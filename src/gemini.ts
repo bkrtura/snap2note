@@ -62,7 +62,7 @@ export async function recognize(opts: RecognizeOptions): Promise<string> {
 
 	const started = Date.now();
 	if (opts.debug) {
-		console.log(
+		console.debug(
 			`[snap2note] POST ${opts.model} key=${redact(opts.apiKey)} bytes~${approxBase64Bytes(opts.base64)}`
 		);
 	}
@@ -83,7 +83,7 @@ export async function recognize(opts: RecognizeOptions): Promise<string> {
 	}
 
 	if (opts.debug) {
-		console.log(
+		console.debug(
 			`[snap2note] response ${response.status} in ${Date.now() - started}ms`
 		);
 	}
@@ -120,7 +120,7 @@ function withTimeout<T>(
 			},
 			(e) => {
 				clearTimeout(timer);
-				reject(e);
+				reject(e instanceof Error ? e : new Error(String(e)));
 			}
 		);
 	});

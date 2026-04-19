@@ -60,7 +60,7 @@ export class Snap2NoteSettingTab extends PluginSettingTab {
 			.setDesc("Instructs the model how to format the output. Change to translate, summarize, etc.")
 			.addTextArea((ta) => {
 				ta.inputEl.rows = 6;
-				ta.inputEl.style.width = "100%";
+				ta.inputEl.addClass("snap2note-prompt-textarea");
 				ta
 					.setValue(this.plugin.settings.systemPrompt)
 					.onChange(async (value) => {

@@ -1,2 +1,15 @@
 /* Snap2Note — minimal styles */
-/* The plugin uses native Notice components; no custom UI styling required yet. */
+
+/* Hidden file input used to trigger the native camera / file picker. */
+.snap2note-hidden-input {
+	position: fixed;
+	left: -9999px;
+	top: -9999px;
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* Full-width system prompt textarea on the settings tab. */
+.snap2note-prompt-textarea {
+	width: 100%;
+}
