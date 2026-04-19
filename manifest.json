@@ -1,9 +1,9 @@
 {
   "id": "snap2note",
   "name": "Snap2Note",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "minAppVersion": "1.4.0",
-  "description": "Tap the camera icon, snap a photo, and let Gemini Vision drop the recognized Markdown straight into your note. Image is never saved.",
+  "description": "Snap a photo with the native camera, let Gemini Vision recognize the text, and insert formatted Markdown at your cursor. The image is never saved to the vault.",
   "author": "bkrtura",
   "authorUrl": "https://github.com/bkrtura",
   "isDesktopOnly": false

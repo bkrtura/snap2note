@@ -1,7 +1,7 @@
 {
   "name": "snap2note",
-  "version": "0.1.0",
-  "description": "Mobile-first Obsidian plugin: tap camera icon, capture photo, Gemini Vision recognizes text, inserts as Markdown at cursor. Original image never saved.",
+  "version": "1.0.0",
+  "description": "Snap a photo with the native camera, let Gemini Vision recognize the text, and insert formatted Markdown at your cursor. The image is never saved to the vault.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",

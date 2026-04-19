@@ -2,7 +2,7 @@
 
 > One tap → capture → AI recognizes → Markdown inserted. Image never saved.
 
-A mobile-first Obsidian plugin powered by **Google Gemini Vision**. Tap the camera icon, snap a photo of any handwritten note, whiteboard, book page, or formula — and the recognized, formatted Markdown lands directly at your cursor. The original image is discarded immediately after recognition.
+A mobile-first Obsidian plugin powered by **Google Gemini Vision**. Snap a photo with the native camera, let Gemini Vision recognize the text, and insert formatted Markdown at your cursor. The image is never saved to the vault.
 
 ---
 
