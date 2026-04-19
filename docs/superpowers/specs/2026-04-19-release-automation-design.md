@@ -53,11 +53,13 @@ This minimizes manual steps while preserving a simple mental model.
 The intended release flow is:
 
 1. Update the version in `package.json` with `npm version <x.y.z> --no-git-tag-version`
-2. Run `npm run version`
+2. Let npm's `version` lifecycle run the synchronization script automatically
 3. Review the resulting version changes
 4. Commit the release preparation changes
 5. Create and push a Git tag matching the version exactly, for example `1.0.1`
 6. Let GitHub Actions build and publish the release assets
+
+`npm run version` remains available as a manual resynchronization command when a developer edits version metadata directly and wants to reapply the same synchronization logic without bumping the version again.
 
 ### Version Synchronization Script
 
@@ -123,6 +125,9 @@ The workflow must replace existing release assets of the same name when republis
 The implementation should add or update the following files:
 
 - `version-bump.mjs`
+- `scripts/validate-release.mjs`
+- `tests/version-bump.test.mjs`
+- `tests/validate-release.test.mjs`
 - `.github/workflows/release.yml`
 - `package.json`
 - `README.md`
@@ -148,6 +153,22 @@ Responsibilities:
 - verify version/tag consistency
 - create or update the GitHub Release
 - upload required release assets
+
+### `scripts/validate-release.mjs`
+
+Responsibilities:
+
+- validate the pushed tag format
+- verify that `package.json` and `manifest.json` versions match the tag
+- verify that `main.js`, `manifest.json`, and `styles.css` exist and are non-empty
+- provide a local command that mirrors the release workflow's core checks
+
+### `tests/version-bump.test.mjs` and `tests/validate-release.test.mjs`
+
+Responsibilities:
+
+- verify the success and failure behavior of the local release helper scripts
+- keep the GitHub Actions workflow thin by moving important logic into testable Node scripts
 
 ### `package.json`
 
