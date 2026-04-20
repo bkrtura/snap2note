@@ -28,13 +28,13 @@ export class Snap2NoteSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Gemini API key")
-			.setDesc("Get one at Google AI Studio. Stored locally in this plugin's data.json.")
+			.setDesc("Get a free key at aistudio.google.com — stored locally in data.json")
 			.addText((text) => {
 				text.inputEl.type = "password";
 				text.inputEl.autocomplete = "off";
 				text.inputEl.spellcheck = false;
 				text
-					.setPlaceholder("AIza…")
+					.setPlaceholder("Paste key here")
 					.setValue(this.plugin.settings.geminiApiKey)
 					.onChange(async (value) => {
 						this.plugin.settings.geminiApiKey = value.trim();
@@ -44,7 +44,7 @@ export class Snap2NoteSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Model")
-			.setDesc("Which Gemini model to use for recognition.")
+			.setDesc("Model to use for image recognition")
 			.addDropdown((dd) => {
 				for (const [value, label] of Object.entries(MODEL_OPTIONS)) {
 					dd.addOption(value, label);
@@ -108,7 +108,7 @@ export class Snap2NoteSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Request timeout (seconds)")
-			.setDesc("Abort the Gemini request after this many seconds.")
+			.setDesc("Cancel the request after this many seconds")
 			.addText((t) => {
 				t.inputEl.type = "number";
 				t.inputEl.min = "5";
@@ -126,7 +126,7 @@ export class Snap2NoteSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Debug log")
-			.setDesc("Print request timing and errors to the Console. API key and image data are never logged.")
+			.setDesc("Log timing and errors to the developer console — key and image data are never logged")
 			.addToggle((t) =>
 				t.setValue(this.plugin.settings.debugLog).onChange(async (value) => {
 					this.plugin.settings.debugLog = value;

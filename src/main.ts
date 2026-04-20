@@ -104,7 +104,7 @@ export default class Snap2NotePlugin extends Plugin {
 		}
 
 		if (!this.settings.geminiApiKey) {
-			new Notice("Set your Gemini API key in settings");
+			new Notice("Set your API key in plugin settings");
 			return;
 		}
 
